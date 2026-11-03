@@ -1,6 +1,6 @@
-# My OpenCore Configurator 1.0.8 validator workaround
+# OpenCore Configurator 1.0.8 validator workaround
 
-I wrote and tested this workaround for **OpenCore Configurator 2.78.2.0** while editing an **OpenCore 1.0.8 Release** configuration. I reproduced false `No schema for HideVerbose` errors because the published Development validator predates `UEFI → Drivers → HideVerbose`. I reported the problem in [mackie100/OCClocalizations#412](https://github.com/mackie100/OCClocalizations/issues/412).
+This is a local workaround for **OpenCore Configurator 2.78.2.0** when editing a configuration for **OpenCore 1.0.8 Release**. Its published Development validator predates the `UEFI → Drivers → HideVerbose` option and reports false `No schema for HideVerbose` errors on valid 1.0.8 configurations. The issue is tracked in [mackie100/OCClocalizations#412](https://github.com/mackie100/OCClocalizations/issues/412).
 
 ## Use
 
@@ -8,9 +8,9 @@ I wrote and tested this workaround for **OpenCore Configurator 2.78.2.0** while 
 2. The script activates OpenCore Configurator, waits for its validator cache, then installs the official OpenCore 1.0.8 Release `ocvalidate` into the Development cache. It preserves the cache archive's timestamp and selects the Development profile.
 3. Open `config.plist` in Configurator to trigger its **automatic** validation. The title should show `1.0.8 Development Configuration`, while the validator itself reports compatibility with OpenCore 1.0.8.
 
-I made the script download the [official OpenCore 1.0.8 Release archive](https://github.com/acidanthera/OpenCorePkg/releases/tag/1.0.8) and verify the validator's SHA-256 before changing anything. If GitHub downloads are unavailable, pass a local `OpenCore-1.0.8-RELEASE.zip` as its argument. The script checks the installed Configurator version and stops without changing its cache if the app is not version 2.78.2.0. It does not read or modify EFI or `config.plist`.
+The script downloads the [official OpenCore 1.0.8 Release archive](https://github.com/acidanthera/OpenCorePkg/releases/tag/1.0.8) and verifies the validator's SHA-256 before changing anything. If GitHub downloads are unavailable, pass a local `OpenCore-1.0.8-RELEASE.zip` as its argument. It checks the installed Configurator version and stops without changing its cache if the app is not version 2.78.2.0. It does not read or modify EFI or `config.plist`.
 
-**Scope:** I confirmed that the main window's automatic validator uses the corrected cache. **Tools → Advanced OpenCore Validator** downloads the outdated resource again when run and can restore the false errors. Re-run my script after using that tool or reinstalling Configurator. I still need the Configurator developer to provide updated resources and a 1.0.8 Release profile for a permanent fix.
+**Scope:** The main window's automatic validator uses the corrected cache. **Tools → Advanced OpenCore Validator** downloads the outdated resource again when run and can restore the false errors. Re-run the script after using that tool or reinstalling Configurator. A permanent fix requires updated resources and a 1.0.8 Release profile from the Configurator developer.
 
 ## Undo
 
